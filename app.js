@@ -1,6 +1,5 @@
 import express from "express";
 import mongoose from "mongoose";
-import cors from "cors";
 import { connectDB } from "./src/infra/db.js";
 import { quotesRoutes } from "./src/routes/quotesRoutes.js";
 import {userRoutes} from "./src/routes/userRoutes.js";
@@ -10,12 +9,6 @@ dotenv.config()
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-const corsOptions = {
-  origin: process.env.MAIN_DOMAIN, 
-  optionsSuccessStatus: 200
-}
-
-app.use(cors(corsOptions));
 app.use(express.json());
 
 mongoose.set("strictQuery", false);
