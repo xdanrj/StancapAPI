@@ -8,27 +8,6 @@ export const quotesRoutes = (app) => {
   const perPage = 5
 
   // toda rota/ serviço que nao tiver "all" no nome retornará até 5 itens
-  //todas as quotes SEM limite
-  //descartar
-  // app.get("/all_quotes", reqLimit(200), async (req, res) => {
-  //   try {
-  //     const response = await Quotes.find()
-  //     res.status(200).json(response)
-  //   } catch (error) {
-  //     res.status(400).json({ message: error })
-  //   }
-  // })
-
-  //busca especifica SEM limite
-  // descartar 
-  // app.post("/search_all_quotes", reqLimit(200), async (req, res) => {
-  //   try {
-  //     const response = await selectQuote(req.body)
-  //     res.status(200).json(response)
-  //   } catch (error) {
-  //     res.status(400).json({ message: error })
-  //   }
-  // })
 
   //todas as quotes COM limite de 5 por page
   // usar apenas essa rota pra com/sem query
