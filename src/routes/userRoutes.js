@@ -3,7 +3,7 @@ import { User } from "../models/User.js"
 import { selectUser, userExists } from "./commonFunctions.js"
 import { requireUserToken } from "./middleware.js"
 import _ from "lodash"
-import bcrypt from 'bcrypt'
+import bcryptjs from 'bcryptjs'
 import { reqLimit } from "./middleware.js"
 
 export const userRoutes = (app) => {
@@ -100,7 +100,7 @@ export const userRoutes = (app) => {
       if (verification_check.status == "approved") {
         await User.updateOne(
           { email: email },
-          { password: await bcrypt.hash(newPassword, 10) })
+          { password: await bcryptjs.hash(newPassword, 10) })
         res.status(200).json({
           message: "Senha alterada com sucesso"
         })

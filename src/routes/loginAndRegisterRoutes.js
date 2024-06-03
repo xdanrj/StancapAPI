@@ -2,7 +2,7 @@ import twilio from "twilio"
 import { User } from "../models/User.js";
 import { userExists } from "./commonFunctions.js";
 import jwt from "jsonwebtoken"
-import bcrypt from 'bcrypt'
+import bcryptjs from 'bcryptjs'
 import dayjs from "dayjs";
 import { reqLimit } from "./middleware.js";
 
@@ -26,7 +26,7 @@ export const loginAndRegisterRoutes = (app) => {
             if (user) {
                 const userId = user._id
                 const username = user.username
-                const correctCredentials = bcrypt.compare(password, user.password)
+                const correctCredentials = bcryptjs.compare(password, user.password)
                 if (correctCredentials) {
                     const userToken = createUserToken(user._id)
                     res.status(200).json({ userToken: userToken, userId: userId, username: username })
@@ -110,7 +110,7 @@ export const loginAndRegisterRoutes = (app) => {
             const selectedUser = await userExists({ email: email })
             console.log("selectedUser: ", selectedUser)
             try {
-                password = await bcrypt.hash(req.body.password, 10)
+                password = await bcryptjs.hash(req.body.password, 10)
             } catch (error) {
                 res.status(400).json({ message: error })
             }
