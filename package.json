@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "node app.js"
+    "build": "set NODE_ENV=production&& node app.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
