@@ -23,7 +23,7 @@ export function getPropertyLabel(rawValue) {
 
 // Função que seleciona o usuário através de qualquer propriedade. Usa sempre o primeiro objeto da requisição ( {propriedade: valorDaPropriedade} ). Serve para selecionar o usuário caso a rota não explicite a propriedade selecionada.
 export async function selectUser(searchQuery) {
-  let property = Object.keys(searchQuery)[0]
+  let property = Object?.keys(searchQuery)[0]
   let target = searchQuery[property]
   let query = { [property]: target }
 
@@ -51,7 +51,7 @@ export async function userExists(proprietyTarget) {
 }
 
 export async function selectQuote(searchQueryArg, sort, skipItems = null, limit = null) {
-  const searchQueryKeys = Object.keys(searchQueryArg)
+  const searchQueryKeys = Object?.keys(searchQueryArg)
   const searchQuery = searchQueryArg
   let quotesQtd
   let queriesToDo = {}
@@ -101,7 +101,7 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
     successQueries = fullQueryTry
     quotesQtd = await Quotes.countDocuments(queriesToDo)
   } else {
-    for (const [key, value] of Object.entries(queriesToDo)) {
+    for (const [key, value] of Object?.entries(queriesToDo)) {
       console.log("entrou loop 1")
       console.log("key: ", key)
       console.log("value: ", value)
@@ -123,7 +123,7 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
 
     let maxQuotes = -1
     //define qual query teve mais resultados
-    for (const [key, value] of Object.entries(quotesCount)) {
+    for (const [key, value] of Object?.entries(quotesCount)) {
       if (value > maxQuotes) {
         maxQuotes = value
         mostQueryRes = { [key]: value }
@@ -134,7 +134,7 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
     const qtsCntKeys = _.keys(quotesCount)
     let doneQueries = qtsCntKeys.map(str => JSON.parse(str))
     doneQueries = _.merge({}, ...doneQueries)
-    const mQrKey = Object.keys(mostQueryRes)[0]
+    const mQrKey = Object?.keys(mostQueryRes)[0]
     mostQueryRes = JSON.parse(mQrKey)
     quotesQtd = await Quotes.countDocuments(mostQueryRes)
 
