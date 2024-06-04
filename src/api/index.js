@@ -6,7 +6,7 @@ import {userRoutes} from "../routes/userRoutes.js";
 import { loginAndRegisterRoutes } from "../routes/loginAndRegisterRoutes.js";
 import dotenv from "dotenv"
 dotenv.config()
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 const app = express();
 
 app.use(express.json());
@@ -28,7 +28,7 @@ app.use(
 )
 
 app.listen(PORT, () => {
-  console.log(`API pronta: localhost:${PORT}`);
+  console.log(`API pronta: https://localhost:${PORT}`);
 })
 
 connectDB()
