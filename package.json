@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "set NODE_ENV=production&& node app.js"
+    "build": "node src/api/index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

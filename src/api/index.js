@@ -1,12 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
-import { connectDB } from "./src/infra/db.js";
-import { quotesRoutes } from "./src/routes/quotesRoutes.js";
-import {userRoutes} from "./src/routes/userRoutes.js";
-import { loginAndRegisterRoutes } from "./src/routes/loginAndRegisterRoutes.js";
+import { connectDB } from "../infra/db.js";
+import { quotesRoutes } from "../routes/quotesRoutes.js";
+import {userRoutes} from "../routes/userRoutes.js";
+import { loginAndRegisterRoutes } from "../routes/loginAndRegisterRoutes.js";
 import dotenv from "dotenv"
 dotenv.config()
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(express.json());
@@ -40,3 +40,4 @@ app.get("/", async (req, res) => {
 userRoutes(app)
 quotesRoutes(app)
 loginAndRegisterRoutes(app)
+export default app
