@@ -28,7 +28,7 @@ app.use(
 )
 
 app.listen(PORT, () => {
-  console.log(`API ready to use`);
+  console.log(`API pronta: localhost:${PORT}`);
 })
 
 connectDB()
