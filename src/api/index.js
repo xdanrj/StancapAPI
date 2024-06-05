@@ -28,7 +28,7 @@ app.use(
 )
 
 app.listen(PORT, () => {
-  console.log(`API pronta: https://localhost:${PORT}`);
+  console.log(`API pronta: http://localhost:${PORT}`);
 })
 
 connectDB()
@@ -40,4 +40,3 @@ app.get("/", async (req, res) => {
 userRoutes(app)
 quotesRoutes(app)
 loginAndRegisterRoutes(app)
-export default app
