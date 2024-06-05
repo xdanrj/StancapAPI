@@ -134,9 +134,9 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
     const qtsCntKeys = _.keys(quotesCount)
     let doneQueries = qtsCntKeys.map(str => JSON.parse(str))
     doneQueries = _.merge({}, ...doneQueries)
-    const mQrKey = Object?.keys(mostQueryRes)[0]
+    const mQrKey = Object.keys(mostQueryRes || undefined)[0]
     mostQueryRes = JSON.parse(mQrKey)
-    quotesQtd = await Quotes.countDocuments(mostQueryRes)
+    quotesQtd = await Quotes.countDocuments(mostQueryRes || 0)
 
     console.log("mostQueryRes: ", mostQueryRes)
     console.log("qtsCntKeys: ", qtsCntKeys)
