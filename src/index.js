@@ -5,6 +5,8 @@ import { quotesRoutes } from "./routes/quotesRoutes.js";
 import {userRoutes} from "./routes/userRoutes.js";
 import { loginAndRegisterRoutes } from "./routes/loginAndRegisterRoutes.js";
 import dotenv from "dotenv"
+import helmet from "helmet";
+import cors from "cors";
 dotenv.config()
 const PORT = process.env.PORT || 3002;
 const app = express();
