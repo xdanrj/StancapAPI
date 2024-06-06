@@ -9,6 +9,9 @@ dotenv.config()
 const PORT = process.env.PORT || 3002;
 const app = express();
 
+app.use(helmet())
+app.use(cors())
+
 app.use(express.json());
 
 mongoose.set("strictQuery", false);
