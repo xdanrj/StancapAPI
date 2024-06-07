@@ -80,7 +80,6 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
     queriesToDo = { ...queriesToDo, ...tagsQuery }
   }
   queriesToDo = { ...queriesToDo, ...searchQuery }
-  console.log("oo: ", queriesToDo)
 
   let quotesCount = {}
   let findingQuotes = []
@@ -93,8 +92,7 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
     .sort({ uploadDate: sort })
     .skip(skipItems)
     .limit(limit).lean()
-
-  //console.log("fullquerytry: ", fullQueryTry)
+    console.log("fullQueryTry: ", fullQueryTry)
 
   const failedTags = []
   if (fullQueryTry.length > 0) {
@@ -130,11 +128,11 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
       }
     }
     console.log("quotesCount: ", quotesCount)
-
+    console.log("queriesToDo:", queriesToDo)
     const qtsCntKeys = _.keys(quotesCount)
     let doneQueries = qtsCntKeys.map(str => JSON.parse(str))
     doneQueries = _.merge({}, ...doneQueries)
-    const mQrKey = Object.keys(mostQueryRes || undefined)[0]
+    const mQrKey = Object.keys(mostQueryRes)[0]
     mostQueryRes = JSON.parse(mQrKey)
     quotesQtd = await Quotes.countDocuments(mostQueryRes || 0)
 
