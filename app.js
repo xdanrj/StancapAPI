@@ -1,9 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
-import { connectDB } from "./infra/db.js";
-import { quotesRoutes } from "./routes/quotesRoutes.js";
-import {userRoutes} from "./routes/userRoutes.js";
-import { loginAndRegisterRoutes } from "./routes/loginAndRegisterRoutes.js";
+import { connectDB } from "./src/infra/db.js";
+import { quotesRoutes } from "./src/routes/quotesRoutes.js";
+import {userRoutes} from "./src/routes/userRoutes.js";
+import { loginAndRegisterRoutes } from "./src/routes/loginAndRegisterRoutes.js";
 import dotenv from "dotenv"
 import helmet from "helmet";
 import cors from "cors";
