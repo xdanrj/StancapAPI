@@ -56,9 +56,7 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
   let quotesQtd
   let queriesToDo = {}
 
-  console.log("searchQuery: ", searchQuery)
   if (searchQueryKeys.includes("uploadByUsername")) {
-    console.log("entrou no if upuser")
     let foundUser = await User.find({ username: searchQuery.uploadByUsername })
     foundUser = foundUser[0]
     if (foundUser) {
@@ -92,7 +90,6 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
     .sort({ uploadDate: sort })
     .skip(skipItems)
     .limit(limit).lean()
-    console.log("fullQueryTry: ", fullQueryTry)
 
   const failedTags = []
   if (fullQueryTry.length > 0) {
@@ -100,9 +97,6 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
     quotesQtd = await Quotes.countDocuments(queriesToDo)
   } else {
     for (const [key, value] of Object?.entries(queriesToDo)) {
-      console.log("entrou loop 1")
-      console.log("key: ", key)
-      console.log("value: ", value)
       let keyValuePair
       if (value["$in"]) {
         keyValuePair = `{"${key}":{"$in":${JSON.stringify(tagsArr)}}}`
@@ -127,18 +121,12 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
         mostQueryRes = { [key]: value }
       }
     }
-    console.log("quotesCount: ", quotesCount)
-    console.log("queriesToDo:", queriesToDo)
     const qtsCntKeys = _.keys(quotesCount)
     let doneQueries = qtsCntKeys.map(str => JSON.parse(str))
     doneQueries = _.merge({}, ...doneQueries)
     const mQrKey = Object.keys(mostQueryRes)[0]
     mostQueryRes = JSON.parse(mQrKey)
     quotesQtd = await Quotes.countDocuments(mostQueryRes || 0)
-
-    console.log("mostQueryRes: ", mostQueryRes)
-    console.log("qtsCntKeys: ", qtsCntKeys)
-    console.log("doneQueries: ", doneQueries)
 
     if (findingQuotes.length > 0) {
       for (const key in doneQueries) {
@@ -155,20 +143,13 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
         }
       }
     } else {
-      //console.log("kkk: ", _.keys(doneQueries)[0])
       failedQueries.push(_.keys(doneQueries)[0])
     }
-    console.log("findingQuotes.length:", findingQuotes.length)
-    console.log("failedQueries: ", failedQueries)
-    // console.log("successQueries: ", successQueries)
   }
 
   let message = null
   let frmtFailedQueries = failedQueries.map((k) => getPropertyLabel(k) || k).join(" + ")
   let frmtFailedTags = failedTags.join(" , ")
-  console.log("failedQueries: ", failedQueries)
-  console.log("quotesQtd: ", quotesQtd)
-  console.log("failedTags: ", failedTags)
   if (failedTags.length > 0) {
     message = `Tag(s): ${frmtFailedTags} não encontrada(s). Apague-a(s) da pesquisa.`
   }
@@ -179,6 +160,7 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
     message = `${frmtFailedQueries} não encontrado(s).
     Reduza o escopo da pesquisa.`
   }
+  console.log("successQueries: ", successQueries)
   return { quotes: successQueries, message: message, quotesQtd: quotesQtd }
 }
 
