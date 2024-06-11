@@ -11,7 +11,7 @@ export const quotesRoutes = (app) => {
 
   //todas as quotes COM limite de 5 por page
   // usar apenas essa rota pra com/sem query
-  app.get(`/get_quotes`, reqLimit(200), async (req, res) => {
+  app.get(`/get_quotes`, reqLimit(800), async (req, res) => {
     try {
       const searchquery = _.omit(req.query, ['page', 'sort'])
       console.log("sss", searchquery)
@@ -28,7 +28,7 @@ export const quotesRoutes = (app) => {
     }
   })
 
-  app.patch("/edit_quote", reqLimit(40), requireUserToken, async (req, res) => {
+  app.patch("/edit_quote", reqLimit(80), requireUserToken, async (req, res) => {
     try {
       console.log("req.query: ", req.query)
       console.log("rqbody: ", req.body)
@@ -49,7 +49,7 @@ export const quotesRoutes = (app) => {
     }
   })
 
-  app.delete("/delete_quote", reqLimit(25), requireUserToken, async (req, res) => {
+  app.delete("/delete_quote", reqLimit(50), requireUserToken, async (req, res) => {
     try {
       const quoteId = { _id: req.query.quoteId }
       const userId = req.query.userId
