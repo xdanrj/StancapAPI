@@ -124,9 +124,11 @@ export async function selectQuote(searchQueryArg, sort = null, skipItems = null,
     const qtsCntKeys = _.keys(quotesCount)
     let doneQueries = qtsCntKeys.map(str => JSON.parse(str))
     doneQueries = _.merge({}, ...doneQueries)
-    const mQrKey = Object.keys(mostQueryRes)[0]
-    mostQueryRes = JSON.parse(mQrKey)
-    quotesQtd = await Quotes.countDocuments(mostQueryRes || 0)
+    if (mostQueryRes) {
+      const mQrKey = Object.keys(mostQueryRes)[0]
+      mostQueryRes = JSON.parse(mQrKey)
+      quotesQtd = await Quotes.countDocuments(mostQueryRes || 0)
+    }
 
     if (findingQuotes.length > 0) {
       for (const key in doneQueries) {
@@ -150,13 +152,16 @@ export async function selectQuote(searchQueryArg, sort = null, skipItems = null,
   let message = null
   let frmtFailedQueries = failedQueries.map((k) => getPropertyLabel(k) || k).join(" + ")
   let frmtFailedTags = failedTags.join(" , ")
+  console.log("frmtFailedQueries: ", frmtFailedQueries)
   if (failedTags.length > 0) {
     message = `Tag(s): ${frmtFailedTags} não encontrada(s). Apague-a(s) da pesquisa.`
   }
   else if (failedQueries.length > 0 && successQueries.length > 0) {
-    message = `Resultados de apenas ${getPropertyLabel(..._.keys(mostQueryRes))}.
+    message = 
+    `Resultados de apenas ${getPropertyLabel(..._.keys(mostQueryRes))}.
     ${frmtFailedQueries} não encontrado(s)`
-  } else if (successQueries.length === 0) {
+
+  } else if (successQueries.length === 0 && frmtFailedQueries) {
     message = `${frmtFailedQueries} não encontrado(s).
     Reduza o escopo da pesquisa.`
   }
