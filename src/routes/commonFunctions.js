@@ -50,7 +50,7 @@ export async function userExists(proprietyTarget) {
   }
 }
 
-export async function selectQuote(searchQueryArg, sort, skipItems = null, limit = null) {
+export async function selectQuote(searchQueryArg, sort = null, skipItems = null, limit = null) {
   const searchQueryKeys = Object?.keys(searchQueryArg)
   const searchQuery = searchQueryArg
   let quotesQtd
@@ -87,7 +87,7 @@ export async function selectQuote(searchQueryArg, sort, skipItems = null, limit 
 
   const fullQueryTry = await Quotes.find
     (queriesToDo)
-    .sort({ uploadDate: sort })
+    .sort(sort ? { uploadDate: sort } : {})
     .skip(skipItems)
     .limit(limit).lean()
 

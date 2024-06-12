@@ -19,8 +19,6 @@ export const quotesRoutes = (app) => {
       const page = req.query.page ? parseInt(req.query.page) : 1
       const skipItems = (page - 1) * perPage
       const response = await selectQuote(searchquery, sort, skipItems, perPage)
-       console.log("ppp")
-        console.log(response)
       res.status(200).json(response)
     } catch (error) {
       console.log("ERROROTA: ", error)
@@ -53,9 +51,8 @@ export const quotesRoutes = (app) => {
     try {
       const quoteId = { _id: req.query.quoteId }
       const userId = req.query.userId
-      //console.log(await selectQuote(quoteId))
-      //let findingQuote = (await selectQuote(quoteId)).foundQuote
-      //let selectedQuote = findingQuote[0]
+      console.log("quoteId: ", quoteId)
+      console.log("userId: ", userId)
       let selectedQuote = await selectQuote(quoteId)
       selectedQuote = selectedQuote.quotes[0]
       console.log("SS:")
