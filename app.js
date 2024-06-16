@@ -12,7 +12,12 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(helmet())
-app.use(cors())
+
+const corsOptions = {
+  origin: "https://stancap.vercel.app", 
+  optionsSuccessStatus: 200 
+};
+app.use(cors(corsOptions))
 
 app.use(express.json());
 
