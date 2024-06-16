@@ -14,8 +14,14 @@ const app = express();
 app.use(helmet())
 
 const corsOptions = {
-  origin: "https://stancap.vercel.app", 
-  optionsSuccessStatus: 200 
+  origin: function (origin, callback) {
+    if (!origin || origin === "https://stancap.vercel.app") {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions))
 
