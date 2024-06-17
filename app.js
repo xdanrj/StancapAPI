@@ -9,14 +9,15 @@ import helmet from "helmet";
 import cors from "cors";
 dotenv.config()
 const PORT = process.env.PORT || 3000;
-const CORS_URL = process.env.CORS_URL
+const CORS_URL = process.env.CORS_URL || '*'
+console.log("CORS AQUI: ", CORS_URL)
 const app = express();
 
 app.use(helmet())
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || origin === `${CORS_URL}`) {
+    if (!origin || origin === CORS_URL) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
