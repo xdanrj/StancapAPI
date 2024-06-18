@@ -9,7 +9,7 @@ import helmet from "helmet";
 import cors from "cors";
 dotenv.config()
 const PORT = process.env.PORT || 3000;
-const CORS_URL = process.env.CORS_URL || '*'
+const CORS_URL = process.env.CORS_URL
 console.log("CORS AQUI: ", CORS_URL)
 const app = express();
   
