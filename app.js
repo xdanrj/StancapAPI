@@ -15,16 +15,10 @@ const app = express();
   
 app.use(helmet())
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || origin === CORS_URL) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  optionsSuccessStatus: 200,
-};
+var corsOptions = {
+  origin: CORS_URL,
+  optionsSuccessStatus: 200 
+}
 app.use(cors(corsOptions))
 
 app.use(express.json());
