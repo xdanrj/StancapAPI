@@ -30,7 +30,7 @@ export const quotesRoutes = (app) => {
     try {
       console.log("req.query: ", req.query)
       console.log("rqbody: ", req.body)
-      const {quotes, message} = await selectQuote(req.query)
+      const { quotes, message } = await selectQuote(req.query)
       if (quotes) {
         const response = await Quotes.updateOne(
           quotes[0],
@@ -56,8 +56,8 @@ export const quotesRoutes = (app) => {
       let selectedQuote = await selectQuote(quoteId)
       selectedQuote = selectedQuote.quotes[0]
       console.log("SS:")
-      console.log( selectedQuote)
-      
+      console.log(selectedQuote)
+
 
       if (selectedQuote.uploadByUser === userId) {
         const response = await Quotes.deleteMany(quoteId)
@@ -74,6 +74,17 @@ export const quotesRoutes = (app) => {
   })
 
   app.post("/add_quote", reqLimit(50), requireUserToken, async (req, res) => {
+    const quote = req.body
+    try {
+      const newQuote = new Quotes(quote)
+      const savedQuote = await newQuote.save()
+      res.status(200).json(savedQuote)
+    } catch (error) {
+      res.status(400).json({ message: error })
+    }
+  })
+
+  app.post("/add_multiple_quote", reqLimit(50), requireUserToken, async (req, res) => {
     const quote = req.body
     try {
       const newQuote = new Quotes(quote)

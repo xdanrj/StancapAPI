@@ -16,8 +16,6 @@ export const loginAndRegisterRoutes = (app) => {
   const verifySid = process.env.TWILIO_VERIFY_SID
   const client = twilio(accountSid, authToken)
 
-  createTempToken(dayjs())
-
   app.post("/login", reqLimit(20, 10), async (req, res) => {
     try {
       const { email, password } = req.body
@@ -145,14 +143,5 @@ export const loginAndRegisterRoutes = (app) => {
     }
     const userToken = jwt.sign(payload, secretKey, { expiresIn: '700h' })
     return userToken
-  }
-
-  // não está sendo usado no momento pois o CORS evita solicitacoes fora do site
-  function createTempToken(genericString) {
-    const payload = {
-      genericString: genericString
-    }
-    const tempToken = jwt.sign(payload, secretKey, { expiresIn: '30m' })
-    return tempToken
   }
 }
